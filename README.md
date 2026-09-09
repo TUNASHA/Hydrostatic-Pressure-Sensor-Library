@@ -1,2 +1,2 @@
 # Pressure-sensor
-This is an arduino library that communicates with hydrostatic pressure sensor in other to measure liquid level in a tank
+This is an Arduino library for an MCU to communicate with a hydrostatic pressure sensor, suitable for liquid level measurement in a tank if the pressure is scaled to litres or any other preferred measurement unit
