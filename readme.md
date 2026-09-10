@@ -1,5 +1,3 @@
-# Pressure sensor
-
-This is a library works with a 24 volt pressure level sensor.  
+#Pressure-Sensor-Library This is an Arduino library for an MCU to communicate with a hydrostatic pressure sensor, suitable for liquid level measurement in a tank if the pressure is scaled to litres or any other preferred measurement unit
 
 
