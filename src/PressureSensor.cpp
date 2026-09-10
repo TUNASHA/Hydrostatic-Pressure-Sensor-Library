@@ -8,6 +8,7 @@ PressureSensor::PressureSensor(int pin, int samples) {
 void PressureSensor::begin() {
 #if defined(ARDUINO_ARCH_AVR)
   // Arduino Uno, Mega, Leonardo, etc. — 5V, 10-bit ADC
+  analogReference(DEFAULT);          // Vcc as reference (5.0V on a 5V board)
   pinMode(_pin, INPUT);
   _adcRef        = 5.0;
   _adcResolution = 1023;
