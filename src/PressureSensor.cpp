@@ -6,7 +6,6 @@ PressureSensor::PressureSensor(int pin, int samples) {
 }
 
 void PressureSensor::begin() {
-
 #if defined(ARDUINO_ARCH_AVR)
   // ---- 5V AVR boards: Uno, Mega, Leonardo, Pro Mini (5V) ----
   analogReference(DEFAULT);          // Vcc as reference (5.0V on a 5V board)
