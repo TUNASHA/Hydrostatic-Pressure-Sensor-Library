@@ -1,4 +1,3 @@
-
 #include <PressureSensor.h>
 
 PressureSensor::PressureSensor(int pin, int samples) {
