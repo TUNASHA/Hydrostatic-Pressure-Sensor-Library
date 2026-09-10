@@ -6,10 +6,7 @@ This is simple example to read all data from hydrostatic liquid pressure sensor 
 #include <PressureSensor.h>
 
 PressureSensor PSensor = PressureSensor(A4, 400);         //adcpin, no of samples
-
-float alpha = 0.2;                                      // Smoothing factor (0-1). Higher = more smoothing.
-float filtered_value = 0;                              // Variable to store the filtered result
-unsigned long previousMillis=0,FpreviousMillis=0;
+unsigned long previousMillis=0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -24,18 +21,11 @@ void loop() {
   float volt      = PSensor.readVolt();         // read voltage 
   float curr      = PSensor.readCurr();        // read current
 
-   // This part of the code is optional, it executes low pass filtering every 10ms, suitable for noisy readings
-   if (millis() - FpreviousMillis >= 10) {   
-     filtered_value = alpha * filtered_value + (1 - alpha) * pressure; //lowpass filter
-     FpreviousMillis = millis();
-   }
-
    // prints out readings every 1second
   if (millis() - previousMillis >= 1000) {
-    Serial.println("volt "       + String(volt));
-    Serial.println("curr "       + String(curr, 4));
-    Serial.println("pressure "   + String(pressure, 2));
-    Serial.println("Filteredpressure "   + String(filtered_value, 2));
+    Serial.println("volt "       + String(volt));          // print voltage across the  shunt resistor
+    Serial.println("curr "       + String(curr, 4));      // in four decimal places,print the current flowing through the shunt resistor
+    Serial.println("pressure "   + String(pressure, 2)); // in two decimal places,print the pressure readings
     previousMillis = millis();
   }
 }
