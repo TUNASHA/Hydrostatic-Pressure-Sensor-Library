@@ -12,7 +12,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   psensor.begin();
-  psensor.setParam(0, 500, 165);// min pressure = 0psi, max pressure =500psi, shunt resistor =165ohm
+  psensor.setParam(0, 500, 165); //set min pressure and max pressure according to your sensor
+                                 //min pressure = 0psi, max pressure =500psi, shunt resistor =165ohm
 }
 
 void loop() {
