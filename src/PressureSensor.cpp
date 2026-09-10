@@ -6,6 +6,7 @@ PressureSensor::PressureSensor(int pin, int samples) {
   _samples = samples;
 }
 
+void PressureSensor::begin() {
 #if defined(ARDUINO_ARCH_AVR)
   // Arduino Uno, Mega, Leonardo, etc. — 5V, 10-bit ADC
   pinMode(_pin, INPUT);
@@ -30,7 +31,6 @@ PressureSensor::PressureSensor(int pin, int samples) {
   #error "PressureSensor: unsupported architecture"
 #endif
 }
-
 
 void PressureSensor::setParam(float minPress, float maxPress, int shuntResistor) {
   _minPress = minPress;
