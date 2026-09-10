@@ -6,18 +6,31 @@ PressureSensor::PressureSensor(int pin, int samples) {
   _samples = samples;
 }
 
-void PressureSensor::begin() {
+#if defined(ARDUINO_ARCH_AVR)
+  // Arduino Uno, Mega, Leonardo, etc. — 5V, 10-bit ADC
   pinMode(_pin, INPUT);
-   #if defined(ARDUINO_ARCH_AVR) ||( ARDUINO_ARCH_SAM )||(ARDUINO_ARCH_SAMD)
-  _adcRef = 5.0;
+  _adcRef        = 5.0;
   _adcResolution = 1023;
-  #elif
+
+#elif defined(ARDUINO_ARCH_STM32) || defined(ARDUINO_ARCH_SAMD)
+  // STM32 / SAMD — 3.3V, configurable 12-bit ADC
   pinMode(_pin, INPUT_ANALOG);
-   analogReadResolution(12);
-   _adcRef = 3.3;
-   _adcResolution = 4095;
-  #endif
+  analogReadResolution(12);
+  _adcRef        = 3.3;
+  _adcResolution = 4095;
+
+#elif defined(ARDUINO_ARCH_SAM)
+  // Arduino Due — 3.3V, 12-bit ADC
+  pinMode(_pin, INPUT);
+  analogReadResolution(12);
+  _adcRef        = 3.3;
+  _adcResolution = 4095;
+
+#else
+  #error "PressureSensor: unsupported architecture"
+#endif
 }
+
 
 void PressureSensor::setParam(float minPress, float maxPress, int shuntResistor) {
   _minPress = minPress;
