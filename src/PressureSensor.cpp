@@ -8,11 +8,12 @@ PressureSensor::PressureSensor(int pin, int samples) {
 
 void PressureSensor::begin() {
   pinMode(_pin, INPUT);
+   #if defined(ARDUINO_ARCH_AVR) ||( ARDUINO_ARCH_SAM )||(ARDUINO_ARCH_SAMD)
   _adcRef = 5.0;
   _adcResolution = 1023;
-  #if defined(ARDUINO_ARCH_STM32)
-  analogReadResolution(12);
+  #elif
   pinMode(_pin, INPUT_ANALOG);
+   analogReadResolution(12);
    _adcRef = 3.3;
    _adcResolution = 4095;
   #endif
