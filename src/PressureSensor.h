@@ -2,7 +2,6 @@
 #define PSENSOR
 #include <Arduino.h>
 
-
 class PressureSensor {
 	// API functions:
 public:
@@ -29,5 +28,4 @@ private:
    
 };
 
- //extern PressureSensor PSensor
 #endif
