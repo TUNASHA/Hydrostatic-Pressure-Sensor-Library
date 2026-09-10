@@ -6,26 +6,35 @@ PressureSensor::PressureSensor(int pin, int samples) {
 }
 
 void PressureSensor::begin() {
+
 #if defined(ARDUINO_ARCH_AVR)
-  // Arduino Uno, Mega, Leonardo, etc. — 5V, 10-bit ADC
+  // ---- 5V AVR boards: Uno, Mega, Leonardo, Pro Mini (5V) ----
   analogReference(DEFAULT);          // Vcc as reference (5.0V on a 5V board)
   pinMode(_pin, INPUT);
-  _adcRef        = 5.0;
-  _adcResolution = 1023;
-
-#elif defined(ARDUINO_ARCH_STM32) || defined(ARDUINO_ARCH_SAMD)
-  // STM32 / SAMD — 3.3V, configurable 12-bit ADC
-  pinMode(_pin, INPUT_ANALOG);
-  analogReadResolution(12);
-  _adcRef        = 3.3;
-  _adcResolution = 4095;
+  _adcRef        = 5.0f;
+  _adcResolution = 1023.0f;          // 10-bit
 
 #elif defined(ARDUINO_ARCH_SAM)
-  // Arduino Due — 3.3V, 12-bit ADC
+  // ---- Arduino Due (3.3V, 12-bit) ----
+  analogReference(AR_DEFAULT);
+  pinMode(_pin, INPUT);
+  _adcRef        = 3.3f;
+  _adcResolution = 4095.0f;
+
+#elif defined(ARDUINO_ARCH_SAMD)
+  // ---- Arduino Zero / MKR (3.3V, 12-bit) ----
+  analogReference(AR_DEFAULT);
   pinMode(_pin, INPUT);
   analogReadResolution(12);
-  _adcRef        = 3.3;
-  _adcResolution = 4095;
+  _adcRef        = 3.3f;
+  _adcResolution = 4095.0f;
+
+#elif defined(ARDUINO_ARCH_STM32)
+  // ---- STM32 cores (Blue Pill, Black Pill, etc.) ----
+  pinMode(_pin, INPUT_ANALOG);
+  analogReadResolution(12);
+  _adcRef        = 3.3f;
+  _adcResolution = 4095.0f;
 
 #else
   #error "PressureSensor: unsupported architecture"
