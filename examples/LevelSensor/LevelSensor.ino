@@ -5,21 +5,21 @@ This is simple example to read all data from hydrostatic liquid pressure sensor 
 
 #include <PressureSensor.h>
 
-PressureSensor PSensor = PressureSensor(A4, 400);         //adcpin, no of samples
+PressureSensor psensor = PressureSensor(A4, 400);         //adcpin, no of samples
 unsigned long previousMillis=0;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  PSensor.begin();
-  PSensor.setParam(0, 500, 165);// min pressure = 0psi, max pressure =500psi, shunt resistor =165ohm
+  psensor.begin();
+  psensor.setParam(0, 500, 165);// min pressure = 0psi, max pressure =500psi, shunt resistor =165ohm
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float pressure  = PSensor.readPressure();      // read pressure
-  float volt      = PSensor.readVolt();         // read voltage 
-  float curr      = PSensor.readCurr();        // read current
+  float pressure  = psensor.readPressure();      // read pressure
+  float volt      = psensor.readVolt();         // read voltage 
+  float curr      = psensor.readCurr();        // read current
 
    // prints out readings every 1second
   if (millis() - previousMillis >= 1000) {
